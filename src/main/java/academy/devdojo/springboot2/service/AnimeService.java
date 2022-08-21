@@ -12,10 +12,11 @@ import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 @Service
-public class AnimeService  {
+public class AnimeService {
     private static List<Anime> animes;
+
     static {
-        animes = new ArrayList<>(List.of(new Anime(1L,"Boku No Hero"), new Anime(2L,"Berserk")));
+        animes = new ArrayList<>(List.of(new Anime(1L, "Boku No Hero"), new Anime(2L, "Berserk")));
     }
 
     public List<Anime> listAll() {
@@ -30,12 +31,17 @@ public class AnimeService  {
     }
 
     public Anime save(Anime anime) {
-       anime.setId(ThreadLocalRandom.current().nextLong(3,1000000));
-       animes.add(anime);
-       return anime;
+        anime.setId(ThreadLocalRandom.current().nextLong(3, 1000000));
+        animes.add(anime);
+        return anime;
     }
 
     public void delete(long id) {
         animes.remove(findById(id));
+    }
+
+    public void replace(Anime anime) {
+        delete(anime.getId());
+        animes.add(anime);
     }
 }
